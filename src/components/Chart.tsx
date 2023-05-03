@@ -1,4 +1,5 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, Title, Filler, RadialLinearScale } from "chart.js";
+import { useEffect, useState } from "react";
 import { Doughnut, Line, Radar } from "react-chartjs-2";
 import styled from "styled-components";
 
@@ -90,25 +91,25 @@ export const lineData = {
   ],
 };
 
-export const RadarData = {
-  labels: ['Html5', 'Css', 'Sass', 'Jquery', 'JavaScript', 'React', 'TypeScript', 'StyledComponents', 'Git', 'GitHub'],
-  datasets: [
-    {
-      label: 'Skill',
-      data: [90, 90, 70, 90, 60, 60, 70, 60, 80, 80],
-      backgroundColor: 'rgba(255, 99, 132, 0.2)',
-      borderColor: 'rgba(255, 99, 132, 1)',
-      borderWidth: 1,
-    },
-    {
-      label: 'Skill2',
-      data: [100, 50, 60, 40, 50, 20, 100, 100, 100, 100, 80],
-      backgroundColor: 'rgba(0, 99, 132, 0.2)',
-      borderColor: 'rgba(0, 99, 132, 1)',
-      borderWidth: 1,
-    },
-  ],
-}
+// export const RadarData = {
+//   labels: labels,
+//   datasets: [
+//     {
+//       label: 'Skill',
+//       data: [90, 90, 70, 90, 60, 60, 70, 60, 80, 80],
+//       backgroundColor: 'rgba(255, 99, 132, 0.2)',
+//       borderColor: 'rgba(255, 99, 132, 1)',
+//       borderWidth: 1,
+//     },
+//     {
+//       label: 'Skill2',
+//       data: [100, 50, 60, 40, 50, 20, 100, 100, 100, 100, 80],
+//       backgroundColor: 'rgba(0, 99, 132, 0.2)',
+//       borderColor: 'rgba(0, 99, 132, 1)',
+//       borderWidth: 1,
+//     },
+//   ],
+// }
 
 const SubTitle = styled.h4`
   font-size: 20px;
@@ -120,8 +121,34 @@ const BoxChart = styled.div`
 `;
 
 export const Chart = () =>{
-  
-  
+  const [dataLabels, setLabels] = useState<string[]>([]);
+
+  const arrSkillLang = ['Html5', 'Css', 'Sass', 'Jquery', 'JavaScript', 'React', 'TypeScript', 'StyledComponents', 'Git', 'GitHub'];
+  arrSkillLang.map((item)=>{
+    dataLabels.push(item);
+  })
+  // setLabels('Html5', 'Css', 'Sass', 'Jquery', 'JavaScript', 'React', 'TypeScript', 'StyledComponents', 'Git', 'GitHub');
+
+  const RadarData = {
+    labels: dataLabels,
+    datasets: [
+      {
+        label: 'Skill',
+        data: [90, 90, 70, 90, 60, 60, 70, 60, 80, 80],
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 1,
+      },
+      {
+        label: 'Skill2',
+        data: [100, 50, 60, 40, 50, 20, 100, 100, 100, 100, 80],
+        backgroundColor: 'rgba(0, 99, 132, 0.2)',
+        borderColor: 'rgba(0, 99, 132, 1)',
+        borderWidth: 1,
+      },
+    ],
+  }
+
   return (
     <>
       <SubTitle>1. 원형차트</SubTitle>
@@ -134,7 +161,7 @@ export const Chart = () =>{
       </BoxChart>
       <SubTitle>3. 다각형 차트</SubTitle>
       <BoxChart>
-        <Radar data={RadarData} />;
+        <Radar data={RadarData} id="chart" />;
       </BoxChart>
     </>
   )
